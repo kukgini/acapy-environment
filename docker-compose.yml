@@ -4,14 +4,12 @@ volumes:
   pgdata:
 services:
   postgres:
-    container_name: postgres
     image: postgres:10
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
   acapy:
-    container_name: acapy
     build:
       context: .
       dockerfile: Dockerfile.acapy
