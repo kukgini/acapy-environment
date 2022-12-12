@@ -35,7 +35,7 @@ services:
         "--auto-respond-credential-request",
 
         "--inbound-transport", "http", "0.0.0.0", "8000",
-        "--endpoint", "${ENBOUND_ENDPOINT}",
+        "--endpoint", "${INBOUND_ENDPOINT}",
         "--outbound-transport", "http",
 
         "--admin", "0.0.0.0", "8080",
