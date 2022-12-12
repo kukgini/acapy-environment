@@ -4,9 +4,9 @@ POST {{baseUrl}}/schemas
 Content-Type: application/json
 
 {
-  "attributes": ["score"],
-  "schema_name": "prefs",
-  "schema_version": "1.0"
+  "schema_name": "schema degree",
+  "schema_version": "2022.12.13",
+  "attributes": ["name","date","degree","birthdate_dateint","timestamp"]
 }
 
 ###
@@ -20,17 +20,15 @@ POST {{baseUrl}}/credential-definitions
 Content-Type: application/json
 
 {
-  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:prefs:1.0",
+  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:schema degree:2022.12.13",
   "support_revocation": false,
-  "tag": "2022.12.12"
+  "tag": "2022.12.13"
 }
 
 ###
-# credDef 정의
-GET {{baseUrl}}/credential-definitions/SXYE3iBSWrF8jh57m4yhga:3:CL:618924:2022.12.12
+# credDef 조회
+GET {{baseUrl}}/credential-definitions/created
 Content-Type: application/json
-
-{}
 
 ###
 # connection 조회
@@ -39,7 +37,7 @@ Content-Type: application/json
 
 ###
 # connection 삭제
-DELETE {{baseUrl}}/connections/:conn_id
+DELETE {{baseUrl}}/connections/c3b2f500-1756-412f-915b-d52c3875f0f8
 Content-Type: application/json
 
 ###
@@ -48,6 +46,15 @@ POST {{baseUrl}}/connections/create-invitation?alias=Faber&auto_accept=true&mult
 Content-Type: application/json
 
 {}
+
+###
+# list issue-credential records
+GET {{baseUrl}}/issue-credential/records
+Content-Type: application/json
+
+###
+# delete issue-credential record
+DELETE {{baseUrl}}/issue-credential/records/a2d41aa2-4036-4e04-a2b8-8fe3676bfedf
 
 ###
 # create cred-offer without connection
@@ -78,25 +85,19 @@ Content-Type: application/json
 }
 
 ###
-# list 
-GET {{baseUrl}}/issue-credential/records
-Content-Type: application/json
-
-###
 # create out-of-band invitation with cred-offer
 POST {{baseUrl}}/out-of-band/create-invitation
 Content-Type: application/json
 
 {
-  "alias": "Issuer to Alice",
+  "alias": "This is transcript for Alice",
   "attachments": [
     {
-      "id": "f50d5da5-0ffa-4088-85cb-c91a09e872b0",
+      "id": "4d75b7eb-a59d-4452-a15b-9ebea0375b36",
       "type": "credential-offer"
     }
   ],
   "handshake_protocols": [
-    "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0"
-  ],
-  "metadata": {}
+    "https://didcomm.org/connections/1.0"
+  ]
 }
