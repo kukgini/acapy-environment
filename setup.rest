@@ -22,8 +22,15 @@ Content-Type: application/json
 {
   "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:prefs:1.0",
   "support_revocation": false,
-  "tag": "default"
+  "tag": "2022.12.12"
 }
+
+###
+# credDef 정의
+GET {{baseUrl}}/credential-definitions/SXYE3iBSWrF8jh57m4yhga:3:CL:618924:2022.12.12
+Content-Type: application/json
+
+{}
 
 ###
 # connection 조회
@@ -36,8 +43,60 @@ DELETE {{baseUrl}}/connections/:conn_id
 Content-Type: application/json
 
 ###
-# create connection invitation
+# invitation 생성
 POST {{baseUrl}}/connections/create-invitation?alias=Faber&auto_accept=true&multi_use=false&public=false
 Content-Type: application/json
 
 {}
+
+###
+# create cred-offer without connection
+POST {{baseUrl}}/issue-credential/create-offer
+Content-Type: application/json
+
+{
+  "auto_issue": true,
+  "auto_remove": false,
+  "comment": "oob issuance test",
+  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:618924:2022.12.12",
+  "credential_preview": {
+    "@type": "issue-credential/1.0/credential-preview",
+    "attributes": [
+      {
+        "mime-type": "text/plain",
+        "name": "name",
+        "value": "martini"
+      },
+      {
+        "mime-type": "text/plain",
+        "name": "score",
+        "value": "4.9"
+      }
+    ]
+  },
+  "trace": false
+}
+
+###
+# list 
+GET {{baseUrl}}/issue-credential/records
+Content-Type: application/json
+
+###
+# create out-of-band invitation with cred-offer
+POST {{baseUrl}}/out-of-band/create-invitation
+Content-Type: application/json
+
+{
+  "alias": "Issuer to Alice",
+  "attachments": [
+    {
+      "id": "f50d5da5-0ffa-4088-85cb-c91a09e872b0",
+      "type": "credential-offer"
+    }
+  ],
+  "handshake_protocols": [
+    "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0"
+  ],
+  "metadata": {}
+}
