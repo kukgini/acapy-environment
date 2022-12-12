@@ -1,0 +1,43 @@
+###
+# schema 정의
+POST {{baseUrl}}/schemas
+Content-Type: application/json
+
+{
+  "attributes": ["score"],
+  "schema_name": "prefs",
+  "schema_version": "1.0"
+}
+
+###
+# schema 조회
+GET {{baseUrl}}/schemas/created
+Content-Type: application/json
+
+###
+# credDef 정의
+POST {{baseUrl}}/credential-definitions
+Content-Type: application/json
+
+{
+  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:prefs:1.0",
+  "support_revocation": false,
+  "tag": "default"
+}
+
+###
+# connection 조회
+GET {{baseUrl}}/connections
+Content-Type: application/json
+
+###
+# connection 삭제
+DELETE {{baseUrl}}/connections/:conn_id
+Content-Type: application/json
+
+###
+# create connection invitation
+POST {{baseUrl}}/connections/create-invitation?alias=Faber&auto_accept=true&multi_use=false&public=false
+Content-Type: application/json
+
+{}
