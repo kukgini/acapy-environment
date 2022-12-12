@@ -1,0 +1,54 @@
+version: '3.5'
+
+volumes:
+  pgdata:
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+  acapy:
+    container_name: acapy
+    build:
+      context: .
+      dockerfile: Dockerfile.acapy
+    ports:
+      - 8080:8080
+      - 8000:8000
+    environment:
+      - RUST_LOG=warn
+    entrypoint: [
+        "aca-py", "start",
+        "--log-level", "debug",
+
+        "--auto-provision",
+
+        "--auto-ping-connection",
+        "--auto-respond-messages",
+
+        "--auto-accept-invites",
+        "--auto-accept-requests",
+
+        "--auto-store-credential",
+        "--auto-respond-credential-proposal",
+        "--auto-respond-credential-request",
+
+        "--inbound-transport", "http", "0.0.0.0", "8000",
+        "--endpoint", "${ENBOUND_ENDPOINT}",
+        "--outbound-transport", "http",
+
+        "--admin", "0.0.0.0", "8080",
+        "--admin-insecure-mode",
+
+        "--wallet-name", "acapy",
+        "--wallet-key", "acapy",
+        "--seed", "123456789012345678901234567acapy",
+        "--genesis-url", "http://test.bcovrin.vonx.io/genesis",
+        "--wallet-type", "askar",
+        "--wallet-storage-type", "postgres_storage",
+        "--wallet-storage-config",  "{\"url\":\"postgres:5432\", \"wallet_scheme\":\"DatabasePerWallet\"}",
+        "--wallet-storage-creds", "{\"account\":\"postgres\",\"password\": \"mysecretpassword\",\"admin_account\":\"postgres\", \"admin_password\":\"mysecretpassword\"}",
+    ]
