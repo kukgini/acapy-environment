@@ -22,6 +22,9 @@ services:
         "aca-py", "start",
         "--log-level", "debug",
 
+        "--emit-new-didcomm-prefix",
+        "--emit-new-didcomm-mime-type",
+
         "--auto-provision",
 
         "--auto-ping-connection",
@@ -30,9 +33,11 @@ services:
         "--auto-accept-invites",
         "--auto-accept-requests",
 
-        "--auto-store-credential",
         "--auto-respond-credential-proposal",
         "--auto-respond-credential-request",
+
+        "--auto-respond-presentation-proposal",
+        "--auto-verify-presentation",
 
         "--inbound-transport", "http", "0.0.0.0", "8000",
         "--endpoint", "${INBOUND_ENDPOINT}",

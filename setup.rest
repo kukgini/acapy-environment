@@ -37,7 +37,7 @@ Content-Type: application/json
 
 ###
 # connection 삭제
-DELETE {{baseUrl}}/connections/c3b2f500-1756-412f-915b-d52c3875f0f8
+DELETE {{baseUrl}}/connections/112a0eb3-fe1c-4822-8e08-2cc26f0005ea
 Content-Type: application/json
 
 ###
@@ -54,7 +54,15 @@ Content-Type: application/json
 
 ###
 # delete issue-credential record
-DELETE {{baseUrl}}/issue-credential/records/a2d41aa2-4036-4e04-a2b8-8fe3676bfedf
+DELETE {{baseUrl}}/issue-credential/records/c9aef1fe-59b9-4127-af80-318b4f2f12a6
+
+###
+# list present-proof records
+GET {{baseUrl}}/present-proof/records
+
+###
+# delete present-proof record
+DELETE {{baseUrl}}/present-proof/records/029624b0-c3a6-4fb9-8668-8ba434fd68ed
 
 ###
 # create cred-offer without connection
@@ -65,20 +73,15 @@ Content-Type: application/json
   "auto_issue": true,
   "auto_remove": false,
   "comment": "oob issuance test",
-  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:618924:2022.12.12",
+  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:620394:2022.12.13",
   "credential_preview": {
     "@type": "issue-credential/1.0/credential-preview",
     "attributes": [
-      {
-        "mime-type": "text/plain",
-        "name": "name",
-        "value": "martini"
-      },
-      {
-        "mime-type": "text/plain",
-        "name": "score",
-        "value": "4.9"
-      }
+      { "mime-type": "text/plain", "name": "name", "value": "Alice Smith" },
+      { "mime-type": "text/plain", "name": "date", "value": "2018-05-28" },
+      { "mime-type": "text/plain", "name": "degree", "value": "Maths" },
+      { "mime-type": "text/plain", "name": "birthdate_dateint", "value": "19981007" },
+      { "mime-type": "text/plain", "name": "timestamp", "value": "1665130918" }
     ]
   },
   "trace": false
@@ -93,7 +96,7 @@ Content-Type: application/json
   "alias": "This is transcript for Alice",
   "attachments": [
     {
-      "id": "4d75b7eb-a59d-4452-a15b-9ebea0375b36",
+      "id": "f5c515eb-c8e8-4034-9ee8-683e4cdec364",
       "type": "credential-offer"
     }
   ],
