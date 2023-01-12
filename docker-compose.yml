@@ -9,51 +9,27 @@ services:
       - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
-  acapy:
+  issuer:
     build:
       context: .
       dockerfile: Dockerfile.acapy
     ports:
       - 8080:8080
       - 8000:8000
-    environment:
-      - RUST_LOG=warn
-    entrypoint: [
-        "aca-py", "start",
-        "--log-level", "debug",
+    env_file:
+      - common.env
+      - issuer.env
+    entrypoint: [ "aca-py", "start", "--admin", "0.0.0.0", "8080", "--endpoint", "http://issuer:8000", "--inbound-transport", "http", "0.0.0.0", "8000"]
+  holder:
+    build:
+      context: .
+      dockerfile: Dockerfile.acapy
+    ports:
+      - 7070:7070
+      - 7000:7000
+    env_file:
+      - common.env
+      - holder.env
+    entrypoint: [ "aca-py", "start", "--admin", "0.0.0.0", "7070", "--endpoint", "http://holder:7000", "--inbound-transport", "http", "0.0.0.0", "7000"]
 
-        # "--emit-new-didcomm-prefix",
-        # "--emit-new-didcomm-mime-type",
 
-        "--exch-use-unencrypted-tags",
-
-        "--auto-provision",
-
-        "--auto-ping-connection",
-        "--auto-respond-messages",
-
-        "--auto-accept-invites",
-        "--auto-accept-requests",
-
-        "--auto-respond-credential-proposal",
-        "--auto-respond-credential-request",
-
-        "--auto-respond-presentation-proposal",
-        "--auto-verify-presentation",
-
-        "--inbound-transport", "http", "0.0.0.0", "8000",
-        "--endpoint", "${INBOUND_ENDPOINT}",
-        "--outbound-transport", "http",
-
-        "--admin", "0.0.0.0", "8080",
-        "--admin-insecure-mode",
-
-        "--wallet-name", "acapy",
-        "--wallet-key", "acapy",
-        "--seed", "123456789012345678901234567acapy",
-        "--genesis-url", "http://test.bcovrin.vonx.io/genesis",
-        "--wallet-type", "askar",
-        "--wallet-storage-type", "postgres_storage",
-        "--wallet-storage-config",  "{\"url\":\"postgres:5432\", \"wallet_scheme\":\"DatabasePerWallet\"}",
-        "--wallet-storage-creds", "{\"account\":\"postgres\",\"password\": \"mysecretpassword\",\"admin_account\":\"postgres\", \"admin_password\":\"mysecretpassword\"}",
-    ]
