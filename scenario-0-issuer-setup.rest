@@ -1,11 +1,12 @@
 ###
 # setup schema
+# @name schema
 POST {{issuerAdminUrl}}/schemas
 Content-Type: application/json
 
 {
   "schema_name": "schema degree",
-  "schema_version": "2023.01.17",
+  "schema_version": "2023.01.18",
   "attributes": ["name","date","degree","birthdate_dateint","timestamp"]
 }
 
@@ -15,7 +16,7 @@ POST {{issuerAdminUrl}}/credential-definitions
 Content-Type: application/json
 
 {
-  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:schema degree:2023.01.17",
+  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:schema degree:2023.01.18",
   "support_revocation": false,
   "tag": "default"
 }

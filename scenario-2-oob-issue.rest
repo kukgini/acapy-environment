@@ -8,14 +8,14 @@ Content-Type: application/json
   "auto_issue": true,
   "auto_remove": false,
   "comment": "oob issuance test",
-  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:656549:default",
+  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:658408:default",
   "credential_preview": {
     "@type": "issue-credential/1.0/credential-preview",
     "attributes": [
       { "mime-type": "text/plain", "name": "name", "value": "Alice Smith" },
-      { "mime-type": "text/plain", "name": "date", "value": "2018-05-28" },
-      { "mime-type": "text/plain", "name": "degree", "value": "Maths" },
       { "mime-type": "text/plain", "name": "birthdate_dateint", "value": "19981007" },
+      { "mime-type": "text/plain", "name": "degree", "value": "Maths" },
+      { "mime-type": "text/plain", "name": "date", "value": "2018-05-28" },
       { "mime-type": "text/plain", "name": "timestamp", "value": "1665130918" }
     ]
   },
@@ -34,7 +34,7 @@ Content-Type: application/json
 {
   "alias": "This is transcript for Alice",
   "handshake_protocols": [
-    "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/didexchange/1.0"
+    "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0"
   ],
   "attachments": [
     {
@@ -51,3 +51,7 @@ Content-Type: application/json
 
 {{oob_invitation.response.body.invitation}}
 
+###
+# @name credentials
+GET {{holderAdminUrl}}/credentials
+Content-Type: application/json
