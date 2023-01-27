@@ -6,19 +6,20 @@ Content-Type: application/json
 
 {
   "schema_name": "transacript",
-  "schema_version": "23.01.18",
+  "schema_version": "23.01.26",
   "attributes": ["name","date","degree","birthdate_dateint","timestamp"]
 }
 
 ###
 # setup credDef
+# @creddef
 POST {{issuerAdminUrl}}/credential-definitions
 Content-Type: application/json
 
 {
-  "schema_id": "SXYE3iBSWrF8jh57m4yhga:2:transacript:23.01.18",
+  "schema_id": "{{schema.response.body.schema_id}}",
   "support_revocation": false,
-  "tag": "default"
+  "tag": "4"
 }
 
 ###

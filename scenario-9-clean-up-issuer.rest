@@ -1,24 +1,19 @@
 ###
 # connection 조회
 # @name connections
-GET {{holderAdminUrl}}/connections
+GET {{issuerAdminUrl}}/connections
 Content-Type: application/json
 
 ###
 # connection 삭제
-DELETE {{holderAdminUrl}}/connections/{{connections.response.body.results[0].connection_id}}
+DELETE {{issuerAdminUrl}}/connections/{{connections.response.body.results[0].connection_id}}
 Content-Type: application/json
 
 ###
 # @name issue_credential_records
-GET {{holderAdminUrl}}/issue-credential/records
+GET {{issuerAdminUrl}}/issue-credential/records
 Content-Type: application/json
 
 ###
 # delete issue-credential record
-DELETE {{holderAdminUrl}}/issue-credential/records/{{issue_credential_records.response.body.results[0].credential_exchange_id}}
-
-###
-# @name credential
-GET {{holderAdminUrl}}/credentials
-Content-Type: application/json
+DELETE {{issuerAdminUrl}}/issue-credential/records/{{issue_credential_records.response.body.results[0].credential_exchange_id}}

@@ -8,7 +8,7 @@ Content-Type: application/json
   "auto_issue": true,
   "auto_remove": false,
   "comment": "oob issuance test",
-  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:658408:default",
+  "cred_def_id": "SXYE3iBSWrF8jh57m4yhga:3:CL:668176:4",
   "credential_preview": {
     "@type": "issue-credential/1.0/credential-preview",
     "attributes": [
