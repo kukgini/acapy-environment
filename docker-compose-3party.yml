@@ -25,3 +25,15 @@ services:
       - env.common
       - env.holder
     entrypoint: [ "aca-py", "start", "--admin", "0.0.0.0", "7070", "--inbound-transport", "http", "0.0.0.0", "7000"]
+  verifier:
+    build:
+      context: .
+      dockerfile: Dockerfile.acapy
+    ports:
+      - 9090:9090
+      - 9000:9000
+    env_file:
+      - .env
+      - env.common
+      - env.verifier
+    entrypoint: [ "aca-py", "start", "--admin", "0.0.0.0", "9090", "--inbound-transport", "http", "0.0.0.0", "9000"]
