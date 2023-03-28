@@ -1,0 +1,24 @@
+###
+# invitation 생성
+# @name invitation
+POST {{issuerAdminUrl}}/connections/create-invitation?alias=Faber&auto_accept=true&multi_use=false&public=false
+Content-Type: application/json
+
+{}
+
+###
+# @name connection_request
+POST {{holderAdminUrl}}/connections/receive-invitation
+Content-Type: application/json
+
+{{invitation.response.body.invitation}}
+
+###
+#
+POST {{holderAdminUrl}}/connections/{{connection_request.response.body.connection_id}}/accept-invitation
+Content-Type: application/json
+
+###
+# @name connection_status
+GET {{holderAdminUrl}}/connections/{{connection_request.response.body.connection_id}}
+Content-Type: application/json

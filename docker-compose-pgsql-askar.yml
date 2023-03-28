@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - 5432:5432
+        #volumes:
+        #- ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+  issuer:
+    build:
+      context: .
+      dockerfile: Dockerfile.acapy
+    ports:
+      - 8080:8080
+      - 8000:8000
+    env_file:
+      - common.env
+      - issuer.env
+    entrypoint: [ 
+      "aca-py", "start", 
+      "--admin", "0.0.0.0", "8080", 
+      "--endpoint", "http://issuer:8000", "--inbound-transport", "http", "0.0.0.0", "8000",
+      "--multitenant", "--multitenant-admin",
+      "--multitenancy-config",    "{\"wallet_type\":\"askar-profile\",\"wallet_name\":\"askar_wallet\",\"cache_size\":\"100\",\"key_derivation_method\":\"kdf:argon2i:mod\"}",
+      "--wallet-storage-config", "{\"url\":\"postgres:5432\",\"wallet_scheme\":\"DatabasePerWallet\",\"max_connections\":\"5\",\"min_idle_count\":\"0\",\"connection_timeout\":\"5\"}",
+      "--wallet-storage-type",   "postgres_storage",
+      "--wallet-storage-creds",  "{\"account\":\"postgres\",\"password\":\"mysecretpassword\",\"admin_account\":\"postgres\",\"admin_password\":\"mysecretpassword\"}",
+      "--jwt-secret", "jwt-secret",
+    ]
